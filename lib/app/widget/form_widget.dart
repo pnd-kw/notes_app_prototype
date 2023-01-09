@@ -5,18 +5,20 @@ class FormWidget extends StatelessWidget {
       {super.key,
       this.initialValue,
       required this.labelText,
+      this.labelStyle,
       required this.hintText,
       required this.validator});
 
   final String? initialValue;
   final String labelText;
+  final TextStyle? labelStyle;
   final String hintText;
   final FormFieldValidator<String> validator;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(12),
       child: TextFormField(
         maxLines: 1,
         initialValue: initialValue,
@@ -50,6 +52,7 @@ class FormWidget extends StatelessWidget {
           ),
           hintText: hintText,
           labelText: labelText,
+          labelStyle: labelStyle,
         ),
         validator: validator,
       ),
