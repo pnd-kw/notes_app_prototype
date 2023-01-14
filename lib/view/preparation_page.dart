@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:notes_app_prototype/app/utils/regex_validator.dart';
-import 'package:notes_app_prototype/app/widget/form_widget.dart';
 import 'package:notes_app_prototype/view/sign_in_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -15,21 +13,6 @@ class PreparationPage extends StatefulWidget {
 class _PreparationPageState extends State<PreparationPage> {
   final controller = PageController();
 
-  //bool _loading = false;
-  final _phoneController = TextEditingController();
-  FocusNode appFocusNode = FocusNode();
-
-  //final _formPreparation = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    _phoneController.dispose();
-    super.dispose();
-  }
-
-  /*bool _onEditing = true;
-  String? _code;*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +23,7 @@ class _PreparationPageState extends State<PreparationPage> {
         child: PageView(
           controller: controller,
           children: [
+            /// First Page
             Stack(children: [
               Align(
                 alignment: Alignment.bottomCenter,
@@ -85,6 +69,7 @@ class _PreparationPageState extends State<PreparationPage> {
                 ),
               ),
             ]),
+            /// Second Page
             Stack(
               children: [
                 Align(
@@ -171,7 +156,7 @@ class _PreparationPageState extends State<PreparationPage> {
                           ),
                           'Lets Start'),
                       onPressed: () {
-                        Get.off(() => const SignInPage());
+                        Get.offAll(() => const SignInPage());
                       },
                     ),
                   ),
@@ -181,6 +166,7 @@ class _PreparationPageState extends State<PreparationPage> {
           ],
         ),
       ),
+      /// Bottom Navigation
       bottomSheet: Container(
         color: Colors.green,
         height: 80,
@@ -199,20 +185,4 @@ class _PreparationPageState extends State<PreparationPage> {
       ),
     );
   }
-
-  Widget buildPhoneForm() => FormWidget(
-        controller: _phoneController,
-        hintText: 'Please enter your phone number',
-        labelText: 'Phone',
-        labelStyle: TextStyle(
-            color: appFocusNode.hasFocus ? Colors.blue : Colors.green),
-        validator: (text) {
-          if (text != null && !validPhone.hasMatch(text)) {
-            return msgInvalidPhone;
-          } else if (text == null) {
-            return msgEmpty;
-          } else {}
-          return null;
-        },
-      );
 }
