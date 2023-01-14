@@ -4,12 +4,14 @@ class FormWidget extends StatelessWidget {
   const FormWidget(
       {super.key,
       this.initialValue,
+      required this.controller,
       required this.labelText,
       this.labelStyle,
       required this.hintText,
       required this.validator});
 
   final String? initialValue;
+  final TextEditingController? controller;
   final String labelText;
   final TextStyle? labelStyle;
   final String hintText;
@@ -18,7 +20,7 @@ class FormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(20),
       child: TextFormField(
         maxLines: 1,
         initialValue: initialValue,
@@ -54,6 +56,7 @@ class FormWidget extends StatelessWidget {
           labelText: labelText,
           labelStyle: labelStyle,
         ),
+        controller: controller,
         validator: validator,
       ),
     );

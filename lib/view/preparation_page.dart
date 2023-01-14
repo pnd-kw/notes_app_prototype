@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_verification_code/flutter_verification_code.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 import 'package:notes_app_prototype/app/utils/regex_validator.dart';
 import 'package:notes_app_prototype/app/widget/form_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -13,208 +13,178 @@ class PreparationPage extends StatefulWidget {
 
 class _PreparationPageState extends State<PreparationPage> {
   final controller = PageController();
+
+  //bool _loading = false;
+  final _phoneController = TextEditingController();
   FocusNode appFocusNode = FocusNode();
-  final _formPreparation = GlobalKey<FormState>();
-  bool _onEditing = true;
-  String? _code;
+
+  //final _formPreparation = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  /*bool _onEditing = true;
+  String? _code;*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: const EdgeInsets.only(bottom: 80),
-        child: Form(
-          key: _formPreparation,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: PageView(
-            controller: controller,
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(
-                          left: 25, top: 150, right: 25, bottom: 100),
-                      child: Text(
-                        maxLines: 3,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        '"Just a moment and we${"'"}ll ready to help you remember what is important to you"',
+        width: double.infinity,
+        color: Colors.white,
+        child: PageView(
+          controller: controller,
+          children: [
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 250),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius:
+                            BorderRadius.only(topLeft: Radius.circular(120)),
+                        color: Colors.green,
                       ),
                     ),
-                    buildNameForm(),
-                  ],
-                ),
-              ),
-              Center(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 320),
-                      child: buildPhoneForm(),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(
-                          left: 25, top: 120, right: 25),
-                      child: Text(
-                        maxLines: 5,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        'Tips: set the reminder time earlier than it should be to '
-                            'anticipate unexpected things like lost connections or lost signal.',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              VerificationCode(
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .bodyText2!
-                    .copyWith(color: Theme.of(context).primaryColor),
-                keyboardType: TextInputType.number,
-                underlineColor: Colors.green,
-                length: 6,
-                cursorColor: Colors.green,
-                clearAll: Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(
-                    'clear all',
-                    style: TextStyle(
-                        fontSize: 14,
-                        decoration: TextDecoration.underline,
-                        color: Colors.green[700]),
                   ),
                 ),
-                margin: const EdgeInsets.all(2),
-                onCompleted: (String value) {
-                  setState(() {
-                    _code = value;
-                  });
-                },
-                onEditing: (bool value) {
-                  setState(() {
-                    _onEditing = value;
-                  });
-                  if (!_onEditing) FocusScope.of(context).unfocus();
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Center(
-                  child: _onEditing
-                      ? const Text('Please enter full code')
-                      : Text('Your code: $_code'),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 100                 color: Colors.white,
+                      ),
+                      'We${"'"}re here to help you remember what is important to you',
+                    ),
+                  ),ck(
+              children: [   alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 250),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius:
+                            BorderRadius.only(topRight: Radius.circular(120)),
+                        color: Colors.green,
+                      ),
+                    ),
+                  ),
                 ),
-              )
-            ],
-          ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 175),
+                    child: Image.asset(
+                      "assets/images/alarm_note.png",
+                      width: double.infinity,
+                      height: 200,
+                    ),
+                  ),
+                ),
+                const Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: 30,
+                      top: 400,
+                      right: 30,
+                    ),
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      maxLines: 3,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      'Write down anything and we${"'"}ll help remind you',
+                    ),
+                  ),
+                ),
+                const Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: 25,
+                      top: 500,
+                      right: 25,
+                    ),
+                    child: Text(
+                      maxLines: 3,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      'Tips: set the reminder time earlier than it should be to '
+                      'anticipate unexpected things like lost connections or lost signal.',
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 600),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange,
+                        fixedSize: const Size(200, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: const Text(
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                          'Lets Start'),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
       bottomSheet: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 1),
+        color: Colors.green,
         height: 80,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TextButton(
-              child: const Text(style: TextStyle(color: Colors.green), 'BACK'),
-              onPressed: () => controller.previousPage(
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              ),
+        child: Center(
+          child: SmoothPageIndicator(
+            controller: controller,
+            count: 2,
+            effect: const ExpandingDotsEffect(
+              dotHeight: 9,
+              dotWidth: 12,
+              dotColor: Colors.white60,
+              activeDotColor: Colors.white,
             ),
-            SmoothPageIndicator(
-              controller: controller,
-              count: 3,
-              effect: const ExpandingDotsEffect(
-                dotHeight: 9,
-                dotWidth: 18,
-                dotColor: Colors.transparent,
-                activeDotColor: Colors.green,
-              ),
-            ),
-            TextButton(
-                child:
-                    const Text(style: TextStyle(color: Colors.green), 'NEXT'),
-                onPressed: () {
-                  if (_formPreparation.currentState!.validate()) {
-                    controller.nextPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                }),
-          ],
+          ),
         ),
       ),
     );
   }
 
-  Widget buildNameForm() => FormWidget(
-        hintText: 'Please enter your name',
-        labelText: 'Nama',
+  Widget buildPhoneForm() => FormWidget(
+        controller: _phoneController,
+        hintText: 'Please enter your phone number',
+        labelText: 'Phone',
         labelStyle: TextStyle(
             color: appFocusNode.hasFocus ? Colors.blue : Colors.green),
         validator: (text) {
-          if (text != null && text.length < 2) {
-            return msgMinInput;
+          if (text != null && !validPhone.hasMatch(text)) {
+            return msgInvalidPhone;
           } else if (text == null) {
             return msgEmpty;
           } else {}
           return null;
         },
       );
-
-  Widget buildPhoneForm() => FormWidget(
-      hintText: 'Please enter your phone number',
-      labelText: 'Phone',
-      labelStyle:
-          TextStyle(color: appFocusNode.hasFocus ? Colors.blue : Colors.green),
-      validator: (text) {
-        if (text != null && !validPhone.hasMatch(text)) {
-          return msgInvalidPhone;
-        } else if (text == null) {
-          return msgEmpty;
-        } else {}
-        return null;
-      });
-
-/*Widget buildVerification() => VerificationCode(
-        textStyle: Theme.of(context)
-            .textTheme
-            .bodyText2!
-            .copyWith(color: Theme.of(context).primaryColor),
-        keyboardType: TextInputType.number,
-        underlineColor: Colors.green,
-        length: 6,
-        cursorColor: Colors.green,
-        clearAll: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            'clear all',
-            style: TextStyle(
-                fontSize: 14,
-                decoration: TextDecoration.underline,
-                color: Colors.green[700]),
-          ),
-        ),
-        margin: const EdgeInsets.all(2),
-        onCompleted: (String value) {
-          setState(() {
-            _code = value;
-          });
-        },
-        onEditing: (bool value) {
-          setState(() {
-            _onEditing = value;
-          });
-          if (!_onEditing) FocusScope.of(context).unfocus();
-        },
-      );*/
 }
