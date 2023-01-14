@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:notes_app_prototype/app/utils/regex_validator.dart';
 import 'package:notes_app_prototype/app/widget/form_widget.dart';
@@ -39,30 +40,55 @@ class _PreparationPageState extends State<PreparationPage> {
         child: PageView(
           controller: controller,
           children: [
+            Stack(children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 250),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(120)),
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 100),
+                  child: Image.asset(
+                    "assets/images/alarm_note.png",
+                    width: double.infinity,
+                    height: 200,
+                  ),
+                ),
+              ),
+              const Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 30,
+                    top: 450,
+                    right: 30,
+                  ),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    'We${"'"}re here to help you remember what is important to you',
+                  ),
+                ),
+              ),
+            ]),
             Stack(
               children: [
                 Align(
                   alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 250),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        borderRadius:
-                            BorderRadius.only(topLeft: Radius.circular(120)),
-                        color: Colors.green,
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 100                 color: Colors.white,
-                      ),
-                      'We${"'"}re here to help you remember what is important to you',
-                    ),
-                  ),ck(
-              children: [   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 250),
                     child: Container(
