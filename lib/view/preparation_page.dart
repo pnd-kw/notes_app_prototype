@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:notes_app_prototype/app/utils/regex_validator.dart';
 import 'package:notes_app_prototype/app/widget/form_widget.dart';
+import 'package:notes_app_prototype/view/sign_in_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PreparationPage extends StatefulWidget {
@@ -55,7 +57,7 @@ class _PreparationPageState extends State<PreparationPage> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 150),
+                  padding: const EdgeInsets.only(top: 135),
                   child: Image.asset(
                     "assets/images/logo_notul.png",
                     width: double.infinity,
@@ -168,7 +170,9 @@ class _PreparationPageState extends State<PreparationPage> {
                             fontSize: 16,
                           ),
                           'Lets Start'),
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.off(() => const SignInPage());
+                      },
                     ),
                   ),
                 ),
