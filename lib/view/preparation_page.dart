@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-//import 'package:flutter_svg/flutter_svg.dart';
 import 'package:notes_app_prototype/app/utils/regex_validator.dart';
 import 'package:notes_app_prototype/app/widget/form_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -57,11 +55,11 @@ class _PreparationPageState extends State<PreparationPage> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 100),
+                  padding: const EdgeInsets.only(top: 150),
                   child: Image.asset(
-                    "assets/images/alarm_note.png",
+                    "assets/images/logo_notul.png",
                     width: double.infinity,
-                    height: 200,
+                    height: 150,
                   ),
                 ),
               ),
