@@ -11,6 +11,7 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   final _phoneController = TextEditingController();
+  final _otpController = TextEditingController();
   FocusNode appFocusNode = FocusNode();
 
   @override
@@ -38,8 +39,8 @@ class _SignInPageState extends State<SignInPage> {
                 child: Container(
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(100),
-                      topRight: Radius.circular(100),
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50),
                     ),
                     color: Colors.white,
                   ),
@@ -49,12 +50,99 @@ class _SignInPageState extends State<SignInPage> {
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
-                padding: const EdgeInsets.only(left: 30, top: 350, right: 30),
+                padding: const EdgeInsets.only(top: 250),
                 child: Column(
                   children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, top: 30, right: 20),
+                      child: Text(
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                        'Sign In using your mobile number',
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, top: 20),
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                bottom: BorderSide(
+                                  width: 1,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.black,
+                                ),
+                                '+62',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20),
+                            child: buildPhoneForm(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 0),
+                      child: buildOtpForm(),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: buildPhoneForm(),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          fixedSize: const Size(200, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: const Text(
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          'Request OTP',
+                        ),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          fixedSize: const Size(200, 50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: const Text(
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          'Sign In',
+                        ),
+                        onPressed: () {},
+                      ),
                     ),
                   ],
                 ),
@@ -71,11 +159,25 @@ class _SignInPageState extends State<SignInPage> {
         hintText: 'Please enter your phone number',
         labelText: 'Phone',
         labelStyle: TextStyle(
-            color: appFocusNode.hasFocus ? Colors.blue : Colors.green),
+            color: appFocusNode.hasFocus ? Colors.blue : Colors.black12),
         validator: (text) {
           if (text != null && !validPhone.hasMatch(text)) {
             return msgInvalidPhone;
           } else if (text == null) {
+            return msgEmpty;
+          } else {}
+          return null;
+        },
+      );
+
+  Widget buildOtpForm() => FormWidget(
+        controller: _otpController,
+        hintText: 'Enter the OTP Code',
+        labelText: 'OTP Code',
+        labelStyle: TextStyle(
+            color: appFocusNode.hasFocus ? Colors.blue : Colors.black12),
+        validator: (text) {
+          if (text == null) {
             return msgEmpty;
           } else {}
           return null;

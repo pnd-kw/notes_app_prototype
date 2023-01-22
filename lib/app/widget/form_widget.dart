@@ -25,31 +25,20 @@ class FormWidget extends StatelessWidget {
         maxLines: 1,
         initialValue: initialValue,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
-              color: Colors.black,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
+          hintStyle: const TextStyle(color: Colors.black),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
               color: Colors.green,
-              width: 2.0,
             ),
           ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
+          errorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
               color: Colors.red,
-              width: 2.0,
             ),
           ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(
+          focusedErrorBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(
               color: Colors.red,
-              width: 2.0,
             ),
           ),
           hintText: hintText,
