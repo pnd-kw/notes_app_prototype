@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:notes_app_prototype/view/sign_in_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -60,10 +59,7 @@ class _PreparationPageState extends State<PreparationPage> {
                   ),
                   child: Text(
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.kanit(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
+                    style: Theme.of(context).textTheme.headline3,
                     'We${"'"}re here to help you remember what is important to you',
                   ),
                 ),
@@ -107,10 +103,7 @@ class _PreparationPageState extends State<PreparationPage> {
                     child: Text(
                       textAlign: TextAlign.center,
                       maxLines: 3,
-                      style: GoogleFonts.kanit(
-                        fontSize: 20,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context).textTheme.headline3,
                       'Write down anything and we${"'"}ll help remind you',
                     ),
                   ),
@@ -125,10 +118,7 @@ class _PreparationPageState extends State<PreparationPage> {
                     ),
                     child: Text(
                       maxLines: 3,
-                      style: GoogleFonts.kanit(
-                        fontSize: 14,
-                        color: Colors.white,
-                      ),
+                      style: Theme.of(context).textTheme.subtitle1,
                       'Tips: set the reminder time earlier than it should be to '
                       'anticipate unexpected things like lost connections or lost signal.',
                     ),
@@ -147,10 +137,7 @@ class _PreparationPageState extends State<PreparationPage> {
                         ),
                       ),
                       child: Text(
-                          style: GoogleFonts.kanit(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
+                          style: Theme.of(context).textTheme.button,
                           'Lets Start'),
                       onPressed: () {
                         Get.offAll(() => const SignInPage());

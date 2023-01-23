@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:notes_app_prototype/app/style/colors.dart';
 import 'package:notes_app_prototype/app/utils/regex_validator.dart';
 import 'package:notes_app_prototype/app/widget/form_widget.dart';
 
@@ -24,11 +24,7 @@ class _SignInPageState extends State<SignInPage> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
-            colors: <Color>[
-              Color(0xff008631),
-              Color(0xff00c04b),
-              Color(0xff39e75f),
-            ],
+            colors: greenGradient,
           ),
         ),
         child: Stack(
@@ -38,10 +34,7 @@ class _SignInPageState extends State<SignInPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 50, right: 175),
                 child: Text(
-                  style: GoogleFonts.kanit(
-                    fontSize: 28,
-                    color: Colors.white,
-                  ),
+                  style: Theme.of(context).textTheme.headline1,
                   'Notul App',
                 ),
               ),
@@ -83,10 +76,7 @@ class _SignInPageState extends State<SignInPage> {
                       child: Text(
                         maxLines: 2,
                         textAlign: TextAlign.center,
-                        style: GoogleFonts.kanit(
-                          fontSize: 22,
-                          color: Colors.black87,
-                        ),
+                        style: Theme.of(context).textTheme.headline2,
                         'Sign In using your mobile number',
                       ),
                     ),
@@ -107,10 +97,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             child: Center(
                               child: Text(
-                                style: GoogleFonts.kanit(
-                                  fontSize: 22,
-                                  color: Colors.black,
-                                ),
+                                style: Theme.of(context).textTheme.bodyText1,
                                 '+62',
                               ),
                             ),
@@ -139,9 +126,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                         child: Text(
-                          style: GoogleFonts.kanit(
-                            fontSize: 16,
-                          ),
+                          style: Theme.of(context).textTheme.button,
                           'Request OTP',
                         ),
                         onPressed: () {},
@@ -158,9 +143,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                         child: Text(
-                          style: GoogleFonts.kanit(
-                            fontSize: 16,
-                          ),
+                          style: Theme.of(context).textTheme.button,
                           'Sign In',
                         ),
                         onPressed: () {},

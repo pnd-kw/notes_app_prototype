@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:notes_app_prototype/app/style/fonts.dart';
 import 'package:notes_app_prototype/view/preparation_page.dart';
 
 void main() {
@@ -12,9 +13,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: appTextTheme,
+      ),
       debugShowCheckedModeBanner: false,
-      home: PreparationPage(),
+      home: const PreparationPage(),
     );
   }
 }
