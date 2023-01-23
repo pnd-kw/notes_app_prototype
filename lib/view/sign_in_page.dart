@@ -97,7 +97,7 @@ class _SignInPageState extends State<SignInPage> {
                             ),
                             child: Center(
                               child: Text(
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.subtitle1,
                                 '+62',
                               ),
                             ),
@@ -161,7 +161,8 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget buildPhoneForm() => FormWidget(
         controller: _phoneController,
-        hintText: 'Please enter your phone number',
+        keyBoardType: TextInputType.number,
+        hintText: 'Input tanpa +62 atau 62 atau 0',
         labelText: 'Phone',
         labelStyle: TextStyle(
             color: appFocusNode.hasFocus ? Colors.blue : Colors.black12),
@@ -177,12 +178,15 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget buildOtpForm() => FormWidget(
         controller: _otpController,
-        hintText: 'Enter the OTP Code',
+        keyBoardType: TextInputType.number,
+        hintText: 'Input kode OTP',
         labelText: 'OTP Code',
         labelStyle: TextStyle(
             color: appFocusNode.hasFocus ? Colors.blue : Colors.black12),
         validator: (text) {
-          if (text == null) {
+          if (text != null && text.length < 6){
+            return msgMinInput;
+          } else if (text == null) {
             return msgEmpty;
           } else {}
           return null;

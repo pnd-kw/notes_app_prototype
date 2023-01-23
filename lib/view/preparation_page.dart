@@ -118,7 +118,7 @@ class _PreparationPageState extends State<PreparationPage> {
                     ),
                     child: Text(
                       maxLines: 3,
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.subtitle2,
                       'Tips: set the reminder time earlier than it should be to '
                       'anticipate unexpected things like lost connections or lost signal.',
                     ),

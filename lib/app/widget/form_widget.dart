@@ -8,6 +8,7 @@ class FormWidget extends StatelessWidget {
       required this.labelText,
       this.labelStyle,
       required this.hintText,
+      this.keyBoardType,
       required this.validator});
 
   final String? initialValue;
@@ -15,6 +16,7 @@ class FormWidget extends StatelessWidget {
   final String labelText;
   final TextStyle? labelStyle;
   final String hintText;
+  final TextInputType? keyBoardType;
   final FormFieldValidator<String> validator;
 
   @override
@@ -24,6 +26,8 @@ class FormWidget extends StatelessWidget {
       child: TextFormField(
         maxLines: 1,
         initialValue: initialValue,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        style: Theme.of(context).textTheme.subtitle1,
         decoration: InputDecoration(
           hintStyle: const TextStyle(color: Colors.black),
           focusedBorder: const UnderlineInputBorder(
@@ -46,6 +50,7 @@ class FormWidget extends StatelessWidget {
           labelStyle: labelStyle,
         ),
         controller: controller,
+        keyboardType: keyBoardType,
         validator: validator,
       ),
     );
