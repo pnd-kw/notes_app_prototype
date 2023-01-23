@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:notes_app_prototype/app/utils/regex_validator.dart';
 import 'package:notes_app_prototype/app/widget/form_widget.dart';
 
@@ -35,6 +36,30 @@ class _SignInPageState extends State<SignInPage> {
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
+                padding: const EdgeInsets.only(top: 50, right: 175),
+                child: Text(
+                  style: GoogleFonts.kanit(
+                    fontSize: 28,
+                    color: Colors.white,
+                  ),
+                  'Notul App',
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 175, top: 100),
+                child: Image.asset(
+                  "assets/images/sign_in.png",
+                  width: double.infinity,
+                  height: 150,
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: Padding(
                 padding: const EdgeInsets.only(top: 250),
                 child: Container(
                   decoration: const BoxDecoration(
@@ -53,14 +78,13 @@ class _SignInPageState extends State<SignInPage> {
                 padding: const EdgeInsets.only(top: 250),
                 child: Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20, top: 30, right: 20),
+                   Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
                       child: Text(
                         maxLines: 2,
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: GoogleFonts.kanit(
                           fontSize: 22,
-                          fontWeight: FontWeight.bold,
                           color: Colors.black87,
                         ),
                         'Sign In using your mobile number',
@@ -73,7 +97,7 @@ class _SignInPageState extends State<SignInPage> {
                           child: Container(
                             width: 60,
                             height: 60,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               border: Border(
                                 bottom: BorderSide(
                                   width: 1,
@@ -81,9 +105,9 @@ class _SignInPageState extends State<SignInPage> {
                                 ),
                               ),
                             ),
-                            child: const Center(
+                            child: Center(
                               child: Text(
-                                style: TextStyle(
+                                style: GoogleFonts.kanit(
                                   fontSize: 22,
                                   color: Colors.black,
                                 ),
@@ -114,10 +138,9 @@ class _SignInPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: const Text(
-                          style: TextStyle(
+                        child: Text(
+                          style: GoogleFonts.kanit(
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,
                           ),
                           'Request OTP',
                         ),
@@ -134,10 +157,9 @@ class _SignInPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        child: const Text(
-                          style: TextStyle(
+                        child: Text(
+                          style: GoogleFonts.kanit(
                             fontSize: 16,
-                            fontWeight: FontWeight.bold,
                           ),
                           'Sign In',
                         ),

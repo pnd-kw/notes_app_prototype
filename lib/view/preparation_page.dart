@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:notes_app_prototype/view/sign_in_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -49,19 +50,18 @@ class _PreparationPageState extends State<PreparationPage> {
                   ),
                 ),
               ),
-              const Align(
+              Align(
                 alignment: Alignment.topCenter,
                 child: Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     left: 30,
                     top: 450,
                     right: 30,
                   ),
                   child: Text(
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: GoogleFonts.kanit(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                     'We${"'"}re here to help you remember what is important to you',
@@ -96,10 +96,10 @@ class _PreparationPageState extends State<PreparationPage> {
                     ),
                   ),
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 30,
                       top: 400,
                       right: 30,
@@ -107,28 +107,26 @@ class _PreparationPageState extends State<PreparationPage> {
                     child: Text(
                       textAlign: TextAlign.center,
                       maxLines: 3,
-                      style: TextStyle(
+                      style: GoogleFonts.kanit(
                         fontSize: 20,
-                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                       'Write down anything and we${"'"}ll help remind you',
                     ),
                   ),
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.topCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                       left: 25,
                       top: 500,
                       right: 25,
                     ),
                     child: Text(
                       maxLines: 3,
-                      style: TextStyle(
+                      style: GoogleFonts.kanit(
                         fontSize: 14,
-                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),
                       'Tips: set the reminder time earlier than it should be to '
@@ -148,10 +146,9 @@ class _PreparationPageState extends State<PreparationPage> {
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      child: const Text(
-                          style: TextStyle(
+                      child: Text(
+                          style: GoogleFonts.kanit(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
                             fontSize: 16,
                           ),
                           'Lets Start'),
