@@ -14,6 +14,25 @@ class _SignInPageState extends State<SignInPage> {
   final _phoneController = TextEditingController();
   final _otpController = TextEditingController();
   FocusNode appFocusNode = FocusNode();
+  bool disableButton = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _otpController.addListener(() {
+      setState(() {
+        disableButton = _otpController.text.isNotEmpty;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _otpController.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -142,11 +161,11 @@ class _SignInPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
+                        onPressed: disableButton ? () => signIn : null,
                         child: Text(
                           style: Theme.of(context).textTheme.button,
                           'Sign In',
                         ),
-                        onPressed: () {},
                       ),
                     ),
                   ],
@@ -192,4 +211,8 @@ class _SignInPageState extends State<SignInPage> {
           return null;
         },
       );
+
+  signIn() {
+    // do something
+  }
 }
