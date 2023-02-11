@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:notes_app_prototype/app/repository/remote/supabase_config.dart';
 import 'package:notes_app_prototype/app/style/colors.dart';
 import 'package:notes_app_prototype/app/utils/regex_validator.dart';
 import 'package:notes_app_prototype/app/widget/form_widget.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -11,8 +15,9 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  final _phoneController = TextEditingController();
-  final _otpController = TextEditingController();
+  late final StreamSubscription<AuthState> _authStateSubscription;
+  late final _phoneController = TextEditingController();
+  late final _otpController = TextEditingController();
   FocusNode appFocusNode = FocusNode();
   bool disableButton = false;
 
@@ -53,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 50, right: 175),
                 child: Text(
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.displayLarge,
                   'Notul App',
                 ),
               ),
@@ -95,40 +100,13 @@ class _SignInPageState extends State<SignInPage> {
                       child: Text(
                         maxLines: 2,
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline2,
+                        style: Theme.of(context).textTheme.displayMedium,
                         'Sign In using your mobile number',
                       ),
                     ),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, top: 20),
-                          child: Container(
-                            width: 60,
-                            height: 60,
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  width: 1,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                style: Theme.of(context).textTheme.subtitle1,
-                                '+62',
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 20),
-                            child: buildPhoneForm(),
-                          ),
-                        ),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: buildPhoneForm(),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 0),
@@ -145,7 +123,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                         child: Text(
-                          style: Theme.of(context).textTheme.button,
+                          style: Theme.of(context).textTheme.labelLarge,
                           'Request OTP',
                         ),
                         onPressed: () {},
@@ -163,7 +141,7 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         onPressed: disableButton ? () => signIn : null,
                         child: Text(
-                          style: Theme.of(context).textTheme.button,
+                          style: Theme.of(context).textTheme.labelLarge,
                           'Sign In',
                         ),
                       ),
@@ -180,8 +158,8 @@ class _SignInPageState extends State<SignInPage> {
 
   Widget buildPhoneForm() => FormWidget(
         controller: _phoneController,
-        keyBoardType: TextInputType.number,
-        hintText: 'Input tanpa +62 atau 62 atau 0',
+        keyBoardType: TextInputType.phone,
+        hintText: 'Add your country code number eg. +62',
         labelText: 'Phone',
         labelStyle: TextStyle(
             color: appFocusNode.hasFocus ? Colors.blue : Colors.black12),
@@ -198,7 +176,7 @@ class _SignInPageState extends State<SignInPage> {
   Widget buildOtpForm() => FormWidget(
         controller: _otpController,
         keyBoardType: TextInputType.number,
-        hintText: 'Input kode OTP',
+        hintText: 'Enter your OTP code',
         labelText: 'OTP Code',
         labelStyle: TextStyle(
             color: appFocusNode.hasFocus ? Colors.blue : Colors.black12),

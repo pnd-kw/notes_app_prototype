@@ -59,7 +59,7 @@ class _PreparationPageState extends State<PreparationPage> {
                   ),
                   child: Text(
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline3,
+                    style: Theme.of(context).textTheme.displaySmall,
                     'We${"'"}re here to help you remember what is important to you',
                   ),
                 ),
@@ -103,7 +103,7 @@ class _PreparationPageState extends State<PreparationPage> {
                     child: Text(
                       textAlign: TextAlign.center,
                       maxLines: 3,
-                      style: Theme.of(context).textTheme.headline3,
+                      style: Theme.of(context).textTheme.displaySmall,
                       'Write down anything and we${"'"}ll help remind you',
                     ),
                   ),
@@ -118,7 +118,7 @@ class _PreparationPageState extends State<PreparationPage> {
                     ),
                     child: Text(
                       maxLines: 3,
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.titleSmall,
                       'Tips: set the reminder time earlier than it should be to '
                       'anticipate unexpected things like lost connections or lost signal.',
                     ),
@@ -137,7 +137,7 @@ class _PreparationPageState extends State<PreparationPage> {
                         ),
                       ),
                       child: Text(
-                          style: Theme.of(context).textTheme.button,
+                          style: Theme.of(context).textTheme.labelLarge,
                           'Lets Start'),
                       onPressed: () {
                         Get.offAll(() => const SignInPage());
