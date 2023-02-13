@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app_prototype/app/repository/remote/supabase_config.dart';
 import 'package:notes_app_prototype/app/style/fonts.dart';
-import 'package:notes_app_prototype/view/splash_page.dart';
+import 'package:notes_app_prototype/view/preparation_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         textTheme: appTextTheme,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashPage(),
+      home: const PreparationPage(),
     );
   }
 }

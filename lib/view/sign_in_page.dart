@@ -5,7 +5,6 @@ import 'package:notes_app_prototype/app/repository/remote/supabase_config.dart';
 import 'package:notes_app_prototype/app/style/colors.dart';
 import 'package:notes_app_prototype/app/utils/regex_validator.dart';
 import 'package:notes_app_prototype/app/widget/form_widget.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -15,15 +14,20 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  late final StreamSubscription<AuthState> _authStateSubscription;
   late final _phoneController = TextEditingController();
   late final _otpController = TextEditingController();
   FocusNode appFocusNode = FocusNode();
   bool disableButton = false;
+  static const _timerDuration = 60;
+  final StreamController _timerStream = StreamController<int>();
+  late int timerCounter;
+  late Timer _resendCodeTimer;
 
   @override
   void initState() {
     super.initState();
+
+    activeCounter();
 
     _otpController.addListener(() {
       setState(() {
@@ -35,9 +39,10 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void dispose() {
     super.dispose();
+    _timerStream.close();
+    _resendCodeTimer.cancel();
     _otpController.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +100,9 @@ class _SignInPageState extends State<SignInPage> {
                 padding: const EdgeInsets.only(top: 250),
                 child: Column(
                   children: [
-                   Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 30, right: 20),
                       child: Text(
                         maxLines: 2,
                         textAlign: TextAlign.center,
@@ -114,19 +120,41 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          fixedSize: const Size(200, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        child: Text(
-                          style: Theme.of(context).textTheme.labelLarge,
-                          'Request OTP',
-                        ),
-                        onPressed: () {},
+                      child: StreamBuilder(
+                        stream: _timerStream.stream,
+                        builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+                          return ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                              fixedSize: const Size(250, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                            onPressed: snapshot.data == 0
+                                ? () {
+                                    SupabaseConfig.supabaseClient.auth
+                                        .signInWithOtp(
+                                            phone: _phoneController.text);
+                                    _timerStream.sink.add(60);
+                                    activeCounter();
+                                  }
+                                : null,
+                            child: snapshot.data == 0
+                                ? Text(
+                                    style:
+                                        Theme.of(context).textTheme.labelLarge,
+                                    'Request OTP',
+                                  )
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                          'Resend Code In ${snapshot.hasData ? snapshot.data.toString() : 60} seconds')
+                                    ],
+                                  ),
+                          );
+                        },
                       ),
                     ),
                     Padding(
@@ -156,6 +184,18 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  activeCounter() {
+    _resendCodeTimer =
+        Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (_timerDuration - timer.tick > 0) {
+        _timerStream.sink.add(_timerDuration - timer.tick);
+      } else {
+        _timerStream.sink.add(0);
+        _resendCodeTimer.cancel();
+      }
+    });
+  }
+
   Widget buildPhoneForm() => FormWidget(
         controller: _phoneController,
         keyBoardType: TextInputType.phone,
@@ -181,7 +221,7 @@ class _SignInPageState extends State<SignInPage> {
         labelStyle: TextStyle(
             color: appFocusNode.hasFocus ? Colors.blue : Colors.black12),
         validator: (text) {
-          if (text != null && text.length < 6){
+          if (text != null && text.length < 6) {
             return msgMinInput;
           } else if (text == null) {
             return msgEmpty;
@@ -190,7 +230,5 @@ class _SignInPageState extends State<SignInPage> {
         },
       );
 
-  signIn() {
-    // do something
-  }
+  signIn() {}
 }

@@ -4,6 +4,7 @@ import 'package:notes_app_prototype/view/note_list_page.dart';
 import 'package:notes_app_prototype/view/preparation_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+
 class SupabaseHelper extends StatefulWidget {
   const SupabaseHelper({super.key});
 
