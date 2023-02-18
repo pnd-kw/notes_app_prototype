@@ -17,21 +17,20 @@ class _SignInPageState extends State<SignInPage> {
   late final _phoneController = TextEditingController();
   late final _otpController = TextEditingController();
   FocusNode appFocusNode = FocusNode();
-  bool disableButton = false;
-  static const _timerDuration = 60;
+  bool disableReqOtpButton = true;
+  bool disableSignInButton = false;
+  static const _timerDuration = 10;
   final StreamController _timerStream = StreamController<int>();
-  late int timerCounter;
+  int? timerCounter;
   late Timer _resendCodeTimer;
 
   @override
   void initState() {
     super.initState();
 
-    activeCounter();
-
     _otpController.addListener(() {
       setState(() {
-        disableButton = _otpController.text.isNotEmpty;
+        disableSignInButton = _otpController.text.isNotEmpty;
       });
     });
   }
@@ -39,9 +38,21 @@ class _SignInPageState extends State<SignInPage> {
   @override
   void dispose() {
     super.dispose();
+    _otpController.dispose();
     _timerStream.close();
     _resendCodeTimer.cancel();
-    _otpController.dispose();
+  }
+
+  activeCounter() {
+    _resendCodeTimer =
+        Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      if (_timerDuration - timer.tick > 0) {
+        _timerStream.sink.add(_timerDuration - timer.tick);
+      } else {
+        _timerStream.sink.add(0);
+        _resendCodeTimer.cancel();
+      }
+    });
   }
 
   @override
@@ -131,26 +142,22 @@ class _SignInPageState extends State<SignInPage> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                             ),
-                            onPressed: snapshot.data == 0
+                            onPressed: disableReqOtpButton || snapshot.data == 0
                                 ? () {
-                                    SupabaseConfig.supabaseClient.auth
-                                        .signInWithOtp(
-                                            phone: _phoneController.text);
-                                    _timerStream.sink.add(60);
+                                    setState(() {
+                                      disableReqOtpButton = false;
+                                    });
+                                    _timerStream.sink.add(10);
                                     activeCounter();
                                   }
                                 : null,
-                            child: snapshot.data == 0
-                                ? Text(
-                                    style:
-                                        Theme.of(context).textTheme.labelLarge,
-                                    'Request OTP',
-                                  )
+                            child: disableReqOtpButton || snapshot.data == 0
+                                ? const Text('Request OTP Code')
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                          'Resend Code In ${snapshot.hasData ? snapshot.data.toString() : 60} seconds')
+                                          'Resend Code In ${snapshot.hasData ? snapshot.data.toString() : 10} seconds'),
                                     ],
                                   ),
                           );
@@ -167,7 +174,7 @@ class _SignInPageState extends State<SignInPage> {
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),
-                        onPressed: disableButton ? () => signIn : null,
+                        onPressed: disableSignInButton ? () => signIn : null,
                         child: Text(
                           style: Theme.of(context).textTheme.labelLarge,
                           'Sign In',
@@ -182,18 +189,6 @@ class _SignInPageState extends State<SignInPage> {
         ),
       ),
     );
-  }
-
-  activeCounter() {
-    _resendCodeTimer =
-        Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      if (_timerDuration - timer.tick > 0) {
-        _timerStream.sink.add(_timerDuration - timer.tick);
-      } else {
-        _timerStream.sink.add(0);
-        _resendCodeTimer.cancel();
-      }
-    });
   }
 
   Widget buildPhoneForm() => FormWidget(
