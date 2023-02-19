@@ -19,7 +19,7 @@ class _SignInPageState extends State<SignInPage> {
   FocusNode appFocusNode = FocusNode();
   bool disableReqOtpButton = true;
   bool disableSignInButton = false;
-  static const _timerDuration = 10;
+  static const _timerDuration = 60;
   final StreamController _timerStream = StreamController<int>();
   int? timerCounter;
   late Timer _resendCodeTimer;
@@ -43,18 +43,6 @@ class _SignInPageState extends State<SignInPage> {
     _resendCodeTimer.cancel();
   }
 
-  activeCounter() {
-    _resendCodeTimer =
-        Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      if (_timerDuration - timer.tick > 0) {
-        _timerStream.sink.add(_timerDuration - timer.tick);
-      } else {
-        _timerStream.sink.add(0);
-        _resendCodeTimer.cancel();
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
           ),
         ),
         child: Stack(
-          children: [
+          children: <Widget>[
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
@@ -110,7 +98,7 @@ class _SignInPageState extends State<SignInPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 250),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 20, top: 30, right: 20),
@@ -133,7 +121,7 @@ class _SignInPageState extends State<SignInPage> {
                       padding: const EdgeInsets.only(top: 20),
                       child: StreamBuilder(
                         stream: _timerStream.stream,
-                        builder: (BuildContext ctx, AsyncSnapshot snapshot) {
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
                           return ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
@@ -147,7 +135,8 @@ class _SignInPageState extends State<SignInPage> {
                                     setState(() {
                                       disableReqOtpButton = false;
                                     });
-                                    _timerStream.sink.add(10);
+                                    SupabaseConfig.supabaseClient.auth.signInWithOtp(phone: _phoneController.text);
+                                    _timerStream.sink.add(60);
                                     activeCounter();
                                   }
                                 : null,
@@ -155,9 +144,9 @@ class _SignInPageState extends State<SignInPage> {
                                 ? const Text('Request OTP Code')
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: <Widget>[
                                       Text(
-                                          'Resend Code In ${snapshot.hasData ? snapshot.data.toString() : 10} seconds'),
+                                          'Resend Code In ${snapshot.hasData ? snapshot.data.toString() : 60} seconds'),
                                     ],
                                   ),
                           );
@@ -224,6 +213,18 @@ class _SignInPageState extends State<SignInPage> {
           return null;
         },
       );
+
+  activeCounter() {
+    _resendCodeTimer =
+        Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+          if (_timerDuration - timer.tick > 0) {
+            _timerStream.sink.add(_timerDuration - timer.tick);
+          } else {
+            _timerStream.sink.add(0);
+            _resendCodeTimer.cancel();
+          }
+        });
+  }
 
   signIn() {}
 }

@@ -22,9 +22,9 @@ class _PreparationPageState extends State<PreparationPage> {
         color: Colors.white,
         child: PageView(
           controller: controller,
-          children: [
+          children: <Widget>[
             /// First Page
-            Stack(children: [
+            Stack(children: <Widget>[
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
@@ -65,9 +65,10 @@ class _PreparationPageState extends State<PreparationPage> {
                 ),
               ),
             ]),
+
             /// Second Page
             Stack(
-              children: [
+              children: <Widget>[
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
@@ -150,6 +151,7 @@ class _PreparationPageState extends State<PreparationPage> {
           ],
         ),
       ),
+
       /// Bottom Navigation
       bottomSheet: Container(
         color: Colors.green,
