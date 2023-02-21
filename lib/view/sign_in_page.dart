@@ -57,6 +57,7 @@ class _SignInPageState extends State<SignInPage> {
         ),
         child: Stack(
           children: <Widget>[
+            /// App Title
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
@@ -67,17 +68,19 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
             ),
+            /// Sign In Image
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
                 padding: const EdgeInsets.only(left: 175, top: 100),
                 child: Image.asset(
-                  "assets/images/sign_in.png",
+                  'assets/images/sign_in.png',
                   width: double.infinity,
                   height: 150,
                 ),
               ),
             ),
+            /// White Layer
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
@@ -93,6 +96,7 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
             ),
+            /// Page Title
             Align(
               alignment: Alignment.topCenter,
               child: Padding(
@@ -109,14 +113,17 @@ class _SignInPageState extends State<SignInPage> {
                         'Sign In using your mobile number',
                       ),
                     ),
+                    /// Phone Number Form
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: buildPhoneForm(),
                     ),
+                    /// OTP Code Form
                     Padding(
                       padding: const EdgeInsets.only(top: 0),
                       child: buildOtpForm(),
                     ),
+                    /// Request OTP Button
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: StreamBuilder(
@@ -153,6 +160,7 @@ class _SignInPageState extends State<SignInPage> {
                         },
                       ),
                     ),
+                    /// Sign In Button
                     Padding(
                       padding: const EdgeInsets.only(top: 20),
                       child: ElevatedButton(
@@ -180,6 +188,7 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
+  /// Phone Number Form Widget
   Widget buildPhoneForm() => FormWidget(
         controller: _phoneController,
         keyBoardType: TextInputType.phone,
@@ -196,7 +205,7 @@ class _SignInPageState extends State<SignInPage> {
           return null;
         },
       );
-
+  /// OTP Code Form Widget
   Widget buildOtpForm() => FormWidget(
         controller: _otpController,
         keyBoardType: TextInputType.number,
@@ -213,7 +222,7 @@ class _SignInPageState extends State<SignInPage> {
           return null;
         },
       );
-
+  /// Timer Function
   activeCounter() {
     _resendCodeTimer =
         Timer.periodic(const Duration(seconds: 1), (Timer timer) {

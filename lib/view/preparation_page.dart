@@ -43,7 +43,7 @@ class _PreparationPageState extends State<PreparationPage> {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 135),
                   child: Image.asset(
-                    "assets/images/logo_notul.png",
+                    'assets/images/logo_notul.png',
                     width: double.infinity,
                     height: 150,
                   ),
@@ -60,7 +60,7 @@ class _PreparationPageState extends State<PreparationPage> {
                   child: Text(
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.displaySmall,
-                    'We${"'"}re here to help you remember what is important to you',
+                    'We\'re here to help you remember what is important to you',
                   ),
                 ),
               ),
@@ -87,7 +87,7 @@ class _PreparationPageState extends State<PreparationPage> {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 175),
                     child: Image.asset(
-                      "assets/images/alarm_note.png",
+                      'assets/images/alarm_note.png',
                       width: double.infinity,
                       height: 200,
                     ),
@@ -105,7 +105,7 @@ class _PreparationPageState extends State<PreparationPage> {
                       textAlign: TextAlign.center,
                       maxLines: 3,
                       style: Theme.of(context).textTheme.displaySmall,
-                      'Write down anything and we${"'"}ll help remind you',
+                      'Write down anything and we\'ll help remind you',
                     ),
                   ),
                 ),
